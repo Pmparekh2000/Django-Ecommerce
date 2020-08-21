@@ -4,5 +4,22 @@ from django.http import HttpResponse
 # Create your tests here.
 
 def index(request):
-    return HttpResponse("Index Shop")
+    return render(request, 'shop/index.html')
 
+def aboutus(request):
+    return HttpResponse("We are at about")
+
+def contactus(request):
+    return HttpResponse("We are at contact")    
+
+def trackker(request):
+    return HttpResponse("We are at trackker")
+
+def productview(request):
+    return HttpResponse("We are at productView")    
+
+def search(request):
+    return HttpResponse("We are at search")
+
+def checkout(request):
+    return HttpResponse("We are at checkout")
