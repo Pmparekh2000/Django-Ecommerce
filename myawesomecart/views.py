@@ -4,5 +4,5 @@ from django.http import HttpResponse
 # Create your tests here.
 
 def index(request):
-    return HttpResponse("Index Shop")
+    return HttpResponse("Index Home")
 
