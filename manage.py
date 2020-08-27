@@ -20,3 +20,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# For Django Admin
+# Pass - Django$2020
+# Username - Pmparekh2000
