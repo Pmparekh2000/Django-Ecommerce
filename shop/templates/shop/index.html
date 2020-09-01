@@ -69,7 +69,7 @@ padding-right: 0;
             <div class="card-body">
               <h5 class="card-title">{{product.0.product_name}}</h5>
               <p class="card-text">{{product.0.product_desc}}</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
+              <button id="pr{{product.0.id}}" class="btn btn-primary cart">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -81,7 +81,7 @@ padding-right: 0;
             <div class="card-body">
               <h5 class="card-title">{{i.product_name}}</h5>
               <p class="card-text">{{i.product_desc}}</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
+              <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
             </div>
           </div>
         </div>
@@ -107,3 +107,34 @@ padding-right: 0;
   {% endblock %}
 
 </div>
+
+{% block js %}
+  <script>
+    // console.log('Working');
+    if(localStorage.getItem('cart') == null){
+      // If the cart dosen't exist then don't load it
+      // Else make a new instance of cart
+      var cart = {};
+    } else {
+      // If the cart exists then load it
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+
+    // Below function will target all elements in web-page with cart class
+    $('.cart').click(function(){
+      // console.log('clicked');
+      // Below code will get the id of the button(cart-button)
+      var idstr = this.id.toString();
+      // console.log(idstr);
+      // Below function checks if the cart dictionary dosen't have the clicked button id then it will add the id to the dictionary
+      if (cart[idstr] != undefined) {
+        cart[idstr] = cart[idstr] + 1;
+      } else {
+        cart[idstr] = 1;
+      }
+      console.log(cart);
+      // Below function will reset the cart in the localstorage in the form of JSON
+      localStorage.setItem('cart', JSON.stringify(cart));
+    });
+  </script>
+{% endblock %}
