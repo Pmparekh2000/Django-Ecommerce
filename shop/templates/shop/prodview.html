@@ -1,5 +1,61 @@
 {% extends 'shop/basic.html' %}
 
-{% block title %} Title of product view {% endblock %}
+{% block title %} Product - {{product.product_name}}Title of product view {% endblock %}
 
-{% block body %} This is our about page {% endblock %}
+{% block body %} 
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <img src="/media/{{product.image}}" width="233px" height="385px">
+            </div>
+            <div class="row">
+                <button class="btn btn-primary mx-3 my-4">Buy Now</button>
+                <button class="btn btn-primary my-4">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h5>{{product.product_name}}</h5>
+            <p>{{product.product_desc}}</p>
+            <p><b>MRP Rs. {{product.price}}</b></p>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js %}
+  <script>
+    // console.log('Working');
+    if(localStorage.getItem('cart') == null){
+      // If the cart dosen't exist then don't load it
+      // Else make a new instance of cart
+      var cart = {};
+    } else {
+      // If the cart exists then load it
+      cart = JSON.parse(localStorage.getItem('cart'));
+      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    }
+
+    // Below function will target all elements in web-page with cart class
+    $('.cart').click(function(){
+      // console.log('clicked');
+      // Below code will get the id of the button(cart-button)
+      var idstr = this.id.toString();
+      // console.log(idstr);
+      // Below function checks if the cart dictionary dosen't have the clicked button id then it will add the id to the dictionary
+      if (cart[idstr] != undefined) {
+        cart[idstr] = cart[idstr] + 1;
+      } else {
+        cart[idstr] = 1;
+      }
+      console.log(cart);
+      // Below function will reset the cart in the localstorage in the form of JSON
+      localStorage.setItem('cart', JSON.stringify(cart));
+      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    });
+    $('#popcart').popover();
+    document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in our shopping</h5>');
+  </script>
+{% endblock %}
