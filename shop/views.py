@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Product
+from .models import Product, Contact
 from math import ceil
 
 # Create your tests here.
@@ -31,6 +31,16 @@ def aboutus(request):
     return render(request, 'shop/about.html')
 
 def contactus(request):
+    if request.method == "POST":
+        # print(request)
+        name = request.POST.get('name', 'default')
+        # print(name)
+        phone = request.POST.get('email', 'default')
+        email = request.POST.get('phone', 'default')
+        desc = request.POST.get('desc', 'default')
+        # print(name, email, phone, desc)
+        contact = Contact(name=name, email=email, phone=phone, desc=desc)
+        contact.save()
     return render(request, 'shop/contact.html')    
 
 def trackker(request):
